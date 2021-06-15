@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="UTF-8">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel = "stylesheet" href = "style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+        .font1{
+            font-family: 'Do Hyeon', sans-serif;
+        }
+
+        body {
+    background-color: #1f1f1f;
+    color: #ffffff;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+article{
+    display : flex;
+    flex-direction :column;
+}
+
+.copyright-text {
+    font-family: "Noto Sans KR";
+    font-size: 12px;
+    color: #7c7c7c;
+}
+.question{
+    display : none;
+}
+
+.result{
+    display: none;
+}
+
+#img{
+    width : 300px;
+    height : 300px;
+    margin : 0 auto;
+}
+
+.share{
+    margin : 0 auto;
+}
+
+.kakao_ad{
+    width : 320px;
+    margin : 0 auto;
+}
+
+.banner{
+    display : flex;
+    justify-content: center;
+    width : 300px;
+    margin : 0 auto;
+}
+
+.banner_img{
+    width : 300px;
+}
+
+.rectangle {
+    width: 288px;
+    height: 8px;
+    background-color: #383a43;
+    margin: 0 auto;
+}
+
+.btn-answer, .btn-answer:visited, .btn-answer:hover, .btn-answer:active, .btn-answer:focus {
+    background-color: #1f1f1f;
+    border:#1f1f1f;
+    width: 350px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: #ffffff;
+}
+.btn-answer:hover {
+    background-color: #df3b8d !important;
+    border:#1f1f1f !important;
+    width: 350px;
+    margin: 0 auto;
+    font-size: 18px;
+    color: #ffffff;
+}
+    </style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동물 MBTI</title>
+    <meta name = "description" content="나랑 꼭 닮은 동물을 MBTI를 기반으로 추천해주는 테스트입니다. ">
+    <meta property="og:type" content="website"> 
+    <meta property="og:title" content="동물 테스트">
+    <meta property="og:description" content="나랑 꼭 닮은 동물을 MBTI를 기반으로 추천해주는 테스트입니다.">
+    <meta property="og:image" content="https://fpshawn.netlify.app/penguins.jpg">
+    <meta property="og:url" content="https://fpshawn.netlify.app/">
+</head>
+<body class = "container">
+    <article class = "start">
+        <h1 class = "mt-5 text-center font1">동물에 맞는 MBTI성격 유형</h1>
+        <button type="button" class="btn btn-info btn-lg mt-5" onclick = "start()">테스트 시작하기</button>
+    </article>
+
+    <article class = "question">
+        <div class="progress mt-5">
+            <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: calc(100*12/1%)"></div>
+        </div>
+        <h2 id = title class = "text-center mt-5 font1">문제</h2>
+        <input id = "type" type = "hidden" value = "EI">
+        <div class="rectangle mt-5"></div>
+        <button id = "A" type="button" class="btn-answer btn btn-outline-light btn-lg mt-5 font1">Primary</button>
+        <button id = "B" type="button" class="btn-answer btn btn-outline-light btn-lg mt-5 font1">Primary</button>
+        <div class="rectangle mt-5"></div>
+    </article>
+
+    <article class = "result">
+       
+        <h1 id = "mbti" class = "text-center mt-5 font1">내 MBTI는!!?</h1>
+        <h2 id = "animal" class = "text-center mt-5 font1">동물 이름</h2>
+        <h3 id = "explain" class = "text-center mt-5 font1">설명</h3>
+        
+                <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                <div class="share addthis_inline_share_toolbox"></div>
+            
+    </article>
+    <article class = "kakao_ad mt-5">
+        <ins class="kakao_ad_area" style="display:none;" 
+        data-ad-unit    = "DAN-QjAKLOALXao1qKS7" 
+        data-ad-width   = "320" 
+        data-ad-height  = "100"></ins> 
+    </article>
+
+<script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    <input type = "hidden" id = "EI" value = "0">
+    <input type = "hidden" id = "SN" value = "0">
+    <input type = "hidden" id = "TF" value = "0">
+    <input type = "hidden" id = "JP" value = "0">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script>
+        var num = 1;
+        var q = {
+            1: {"title" : "문제 1번) 어디로 여행갈까? ", "type" : "EI", "첫번 째 선택":"파티가 쿵짝쿵짝 매일같이 열리는 뉴욕으로 간다.", "두번 째 선택":"조용하고 한적한 몰디브 가서 모히토 마신다."},
+            2: {"title" : "문제 2번) 나의 수다 떠는 스타일은?  ", "type" : "EI", "첫번 째 선택":"어묵탕 하나 시키고 소주 들이키며 수다.", "두번 째 선택":"조용히 친구들과 카페 가서 커피 한잔 마시며 쉰다."},
+            3: {"title" : "문제 3번) 10년 만에 친구한테 뭐하냐고 연락이 왔다. 나의 속마음은?  ", "type" : "EI", "첫번 째 선택":"(어머머 웬일이야)반갑다 오랜만이야!", "두번 째 선택":"(뭐지?)반갑다 오랜만이야!"},
+            4: {"title" : "문제 4번) 감동적인 영화를 볼 때 나는? ","type" : "SN", "첫번 째 선택": "흑흑흫흫규규흐흫규ㅠㅠ", "두번 째 선택": "오! 정말 영화 잘 만들었네! 한 번 더 봐야겠어!"},
+            5: {"title" : "문제 5번) 자고 일어났더니 낯선 환경에 내가 있다는 이런 상황일 때 나는? ", "type" : "SN", "첫번 째 선택":"기왕 이렇게 된 거 그 상황을 즐긴다.", "두번 째 선택":"즐기기보단 앞으로의 상황을 생각해 살 수 있는 궁리를 한다."},
+            6: {"title" : "문제 6번) 오늘 친한 친구와 싸웠다, 자기 전의 행동은? ", "type" : "SN", "첫번 째 선택":"졸리니까 일단 자자....", "두번 째 선택":"저절로 잠들기 전까지 생각하다 잠든다."},
+            7: {"title" : "문제 7번) 누군가가 실수를 했을 때 뭐라 말해 줄까?", "type" : "TF", "첫번 째 선택":"위로해주되 정확히 분석하여 앞으로는 그러지 않게 도와준다.", "두번 째 선택":"위로해주면서 공감을 해준다."},
+            8: {"title" : "문제 8번) 여행지에서 관광상품을 사 가려고 한다 나는? ", "type" : "TF", "첫번 째 선택":"정말로 필요한 물품들을 사 간다.", "두번 째 선택":"기왕 여행 온 거 관광지 특유의 관광상품을 사간다(EX.돌하르방 모형)"},
+            9: {"title" : "문제 9번) 모르는 사람들과 파티를 한다. 그 상황에서 나는?", "type" : "TF", "첫번 째 선택":"조용히 뒤에 있다가 속으로 에잇! 하고 그냥 자러간다.", "두번 째 선택":"같이 술 마시며 분위기를 휘어잡는다."},
+            10: {"title" : "문제 10번) 애인: 우리 내일 여행가잖아~ 계획 세워보자! 나의 대답은? ", "type" : "JP", "첫번 째 선택":"이때는 여기 가서 이걸 먹고 그 다음으로 택시를 타서 어디로 간 뒤에 여기서는 이걸 사진 찍고(등등)", "두번 째 선택":"(까먹음)우리 어디 가기로 했지?"},
+            11: {"title" : "문제 11번) 친구랑 약속을 잡았다. 약속 시간이 다가오는 상태에서 나는?", "type" : "JP", "첫번 째 선택":"약속 시간 2시간 전부터 준비하여 대중교통 막히는 거까지 고려해서 출발하여 늦지 않게 나간다.", "두번 째 선택":"(친구가 영상통화로 나온 거 확인 후)그제야 준비하고 나간다."},
+            12: {"title" : "문제 12번) 친구랑 여행 중에 친구가 아침에 일어나지 않아 계획에 차질이 생긴다. 이 때의 나는? ", "type" : "JP", "첫번 째 선택":"계획은 절대 바꿀 수 없으므로 친구를 어떻게든 깨워서 간다.", "두번 째 선택":"아몰랑 같이 잔다."},          
+        }
+
+        var result = {
+            "ISTJ" : {"animal" : "하마", "explain" : "하마 설명 : 한 번 시작한 일을 무슨 일이 있어도 끝까지 해냄"},
+            "ISFJ" : {"animal" : "부엉이", "explain" : "부엉이 설명 : 부엉이 처럼 잠도 잘 안 자고 성실함, 그렇게 안보이지만 또 온화함"},
+            "INFJ" : {"animal" : "물소", "explain" : "물소 설명 : 사람에 관한 뛰어난 통찰력을 가짐, 사람하나는 기가막히게 잘 봄"},
+            "INTJ" : {"animal" : "치타", "explain" : "치타 설명 : 고집 셈, 융통성 부족, 자기 관심 분야 외 신경쓰지 않음"},
+            "ISTP" : {"animal" : "나무늘보", "explain" : "나무늘보 설명 : 사람많은 곳을 싫어하고 틀에 박힌 일상 좋아함. 친구 만나는 것보다 집에서 넷플릭스보는게 더 행복 "},
+            "ISFP" : {"animal" : "거북이", "explain" : "거북이 설명 : 현재의 삶을 최대한 즐김, 추진력 부족, 하지만 즐기는 것에 대한 호기심 가득"},
+            "INFP" : {"animal" : "코끼리", "explain" : "코끼리 설명 : 커뮤니케이션에 능함, 공감,위로 잘해주지만 자신에 대한 공유를 잘 하지 않음"},
+            "INTP" : {"animal" : "침팬지", "explain" : "침팬지 설명 : 독립적이고, 논리적, 지적. 하지만 꾸준히 해야하는 것에 대해 쉽게 싫증을 느낌"},
+            "ESTP" : {"animal" : "악어", "explain" : "악어 설명 : 내가 제일 잘 나가"},
+            "ESFP" : {"animal" : "미어캣", "explain" : "미어캣 설명 : 관종끼 많다는 소리 많이 들음, 대화하다 침묵 흐르는거 싫어함, 하지만 쿠크다스 멘탈.. "},
+            "ENFP" : {"animal" : "멋쟁이 사자", "explain" : "멋쟁이 사자 설명 : 계획 잘 못 세우지만 순간 집중력 좋아서 벼락치기 쌉가능, 즉흥적이고, 충동구매 잘함"},
+            "ENTP" : {"animal" : "태양새", "explain" : "독수리 설명 : 공감 못함..다재다능 하지만 꼰대에 고집까지 셈..(난 항상 옳아 마인드)"},
+            "ESTJ" : {"animal" : "기린", "explain" : "기린 설명 : 부지런하고 책임감이 강하다. 똑부러짐...그냥 완벽주의자"},
+            "ESFJ" : {"animal" : "고릴라", "explain" : "고릴라 설명 : 성격 좋다는 이야기를 많이 듣는 편이지만 칭찬과 공감에 너무 관대해서 때로는 호구로 보일 수도 있다"},
+            "ENFJ" : {"animal" : "카피바라", "explain" : "펭귄 설명 : 감정표현을 잘한다. 항상 해피페이스~ 상상력 풍부하고, 감수성 충만.."},  
+            "ENTJ" : {"animal" : "호랑이", "explain" : "호랑이 설명 : 남이 어쩌든 나만 잘 살면 됨 그냥 나르시스트..효율적인 것을 좋아하고, 높은 야망을 가짐"},
+        }
+
+        function start(){
+            $(".start").hide();                     //<article>태그의 class("start")숨기기
+            $(".question").show();                  //<article>태그의 class("question")보이기
+            next();                                 //next 함수 호출
+        }
+
+        $("#A").click(function(){
+            var type = $("#type").val();            //type = "EI"
+            var preValue = $("#"+type).val();       //preValue = "0"
+            $("#"+type).val(parseInt(preValue)+1);  //<input type = "hidden" id = "EI" value = 1>
+            next();                                 //next()
+        });
+
+        $("#B").click(function(){
+            next();
+        });
+        
+        function next(){
+            if(num == 13){
+                $(".question").hide();
+                $(".result").show();
+                var mbti = "";
+                ($("#EI").val() < 2)? mbti += "I" : mbti += "E";
+                ($("#SN").val() < 2)? mbti += "N" : mbti += "S";
+                ($("#TF").val() < 2)? mbti += "F" : mbti += "T";
+                ($("#JP").val() < 2)? mbti += "P" : mbti += "J";
+                $("#img").attr('src', result[mbti]["img"]);
+                $("#mbti").html(mbti)
+                $("#animal").html(result[mbti]["animal"]);
+                $("#explain").html(result[mbti]["explain"]);
+            }else{
+            $(".progress-bar").attr("style", "width: calc(100/12*"+num+"%");
+            $("#title").html(q[num]["title"]);          //<h2 id = "title">문제</h2> '문제'를 '문제 1번'으로 바꿈
+            $("#type").val(q[num]["type"]);             //#type의 value 값을 q[num]["type"]로 바꿈
+            $("#A").html(q[num]["첫번 째 선택"]);                  //버튼 id = "A"의 value 값을 q[num]["A"]으로 바꿈
+            $("#B").html(q[num]["두번 째 선택"]);                  //버튼 id = "B"의 value 값을 q[num]["B"]으로 바꿈
+            num++;  
+            }
+
+        }
+    </script>
+     <!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-6046ebae74c08b39"></script>
+   
+</body>
+</html>
